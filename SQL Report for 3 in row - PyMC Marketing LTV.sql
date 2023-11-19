@@ -1,6 +1,7 @@
 /*
 /*
 SQL Report for 3 in row - PyMC Marketing LTV
+https://demo-analytics.devtodev.com/space/2628/reports/sql/master
 https://colab.research.google.com/drive/16XcUiRgTFF9eGs0Tc6iJ3mpFS7ue075y
 */
 
