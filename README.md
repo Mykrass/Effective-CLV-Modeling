@@ -4,7 +4,7 @@ This repository contains materials related to Hajime Takeda's presentation on Cu
 - [Demo Code](https://github.com/takechanman1228/Effective-CLV-Modeling/blob/main/PyMC_Marketing_CLV_demo.ipynb)
 
 ## Data
-- [Online Retail Data from UCI Repository](https://archive.ics.uci.edu/dataset/352/online+retail)
+- [Game Data from devtodev demo space](https://demo-analytics.devtodev.com/space/2628/reports/sql/master)
 
 ## Related Links
 - [PyMC Marketing Quick Start](https://www.pymc-marketing.io/en/stable/notebooks/clv/clv_quickstart.html)
