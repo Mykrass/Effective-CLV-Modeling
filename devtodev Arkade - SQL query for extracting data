@@ -1,15 +1,23 @@
-/*
-/*
-SQL Report for Arkade - PyMC Marketing LTV
-https://colab.research.google.com/drive/16XcUiRgTFF9eGs0Tc6iJ3mpFS7ue075y
-*/
-
-declare 
-@Interval interval = '3 month',
-@country text[] = array['US', 'DE', 'RU'];
-
 with t1 as(
-  select 
+  select
+    to_char(eventtime, 'YYYY-MM-DD HH24:MI:SS') as dt
+    ,devtodevid
+    ,country
+    ,product
+    ,priceusd
+    ,paymentid
+    ,paymentcount
+    ,paymentsum
+  from p105094.payments p
+  where eventtime >=current_date - @Interval and eventtime < current_date
+  and country = any (@country)
+  and tester is false
+  --group by 1
+  order by 1 asc
+)
+
+,t2 as(
+ select 
     to_char(eventtime, 'YYYY-MM-DD HH24:MI:SS') as dt
     ,devtodevid
     ,item
@@ -21,32 +29,16 @@ with t1 as(
   order by 1
 )
 
-,t2 as(
-  select
-    to_char(eventtime, 'YYYY-MM-DD HH24:MI:SS') as dt
-    ,devtodevid
-    ,product
-    ,country
-    ,paymentid
-    ,priceusd
-    ,paymentcount
-    ,paymentsum
-  from p105094.payments
-  where created > current_date - @Interval and created < current_date
-  --and country = any (@country)
-  order by 1
-)
-
 ,t3 as(
   select 
     t1.dt as "InvoiceDate"
     ,t1.devtodevid as "CustomerID"
-    ,t2.paymentid as "InvoiceNo"
-    ,t1.item as "StockCode"
-    ,t1.itemtype as "Description"
-    ,t2.country as "Country"
-    ,t2.priceusd as "UnitPrice"
-    ,t2.paymentcount as "Quantity"
+    ,t1.paymentid as "InvoiceNo"
+    ,t1.product as "StockCode"
+    ,t2.item as "Description"
+    ,t1.country as "Country"
+    ,t1.priceusd as "UnitPrice"
+    ,t1.paymentcount as "Quantity"
   from t1
   join t2 using(dt, devtodevid)
 )
