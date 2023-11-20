@@ -1,3 +1,13 @@
+/*
+/*
+SQL Report for Arkade - Extracting data
+*/
+
+declare 
+@Interval interval = '3 month',
+@country text[] = array['US', 'DE', 'RU'];
+
+
 with t1 as(
   select
     to_char(eventtime, 'YYYY-MM-DD HH24:MI:SS') as dt
@@ -10,9 +20,8 @@ with t1 as(
     ,paymentsum
   from p105094.payments p
   where eventtime >=current_date - @Interval and eventtime < current_date
-  and country = any (@country)
+  --and country = any (@country)
   and tester is false
-  --group by 1
   order by 1 asc
 )
 
